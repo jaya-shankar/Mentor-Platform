@@ -1,0 +1,21 @@
+.createGroupForm {
+    position: relative;
+    height: 75%;
+    width: 80%;
+    left: 10%;
+    border: 2px solid red;
+}
+
+.joinButton {
+   
+    position: absolute;
+    left: 80%;
+    width: 20%;
+  }
+
+  .goBack {
+    
+    position: absolute;
+    left: 60%;
+    width: 20%;
+  }

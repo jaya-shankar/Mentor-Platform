@@ -1,0 +1,63 @@
+
+{% extends 'base.html' %}
+{% load static %}
+        {% block content %}
+        
+        <link rel="stylesheet" type="text/css" href="{% static 'css/mentor/courseList.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/mentor/chatBox.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/mentor/rightPart.css' %}">
+        <link rel="stylesheet" href="{% static 'css/mentor/login.css' %}">
+        
+        <script type="text/javascript" src="{% static 'js/jQuery.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/mentor/m_rightPart.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/mentor/m_chatBox.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/courseList.js' %}"></script>
+        
+        <!-- Side navigation -->
+        <div class="sidenav">
+            {% for course in courses %}
+                <button class="course">{{ course }}</button>
+            {% endfor %}
+        </div>
+        <p id="username" hidden>{{ username }}</p>
+
+        <div class="chatBox" hidden>
+            <div class="groupName">
+                <h3 id="groupTitle"></h3>
+                <p id="creatorName">Creator Name</p>
+            </div>
+            <div class="Screen" id="ChatBox">
+
+            </div>
+            <div >
+                <form id="view">
+                    <textarea rows="3" class="textBox"></textarea>
+                    <button  class="uploadButton btn btn-outline-primary">Upload</button>
+                    <input type="submit" class="submitButton btn btn-success">
+                </form>
+            </div>
+        
+        </div>
+
+        <div class="rightPart">
+            <form class="createGroup" action="{% url 'createGroup' %}">
+                <input type="submit" class="btn btn-outline-success" value="Create a Group"></input>
+            </form>
+            <form class="createGroup" id="getDetailsForm" >
+                <input type="submit" class="btn btn-outline-info" value="Get Details" id="getDetails"></input>
+            </form>
+            <form class="createGroup" id="doubts"  >
+                <input type="submit" class="btn btn-outline-info" value="Show Doubts" id="showDoubts"></input>
+            </form>
+            
+        </div>
+
+
+        <div id="doubtModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content" id=doubtScreen></div>
+        
+        </div>
+
+    {% endblock %}

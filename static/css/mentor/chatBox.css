@@ -1,0 +1,75 @@
+.chatBox {
+    position: fixed;
+    left: 22%;
+    height: 87%;
+    width: 40%;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    padding: 0px;
+    margin: 5px;
+    margin-left: 20px;
+    border-radius: 3%;
+    overflow-y: auto;
+    
+  }
+
+  .groupName {
+    position: relative;
+    border-bottom: 2px solid black;
+    text-align: center;
+    background-color: burlywood;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+  }
+
+  .textMsg {
+      position: relative;
+      background-color: lightgreen;
+      width: 90%;
+      box-sizing: content-box;
+      page-break-after: auto;
+      padding: 5px;
+      border: 5px solid white;
+      word-wrap: break-word;
+
+  }
+
+  .dateBox {
+    box-sizing: content-box;
+    background-color: aqua;
+    width: 80px;
+    text-align: center;
+    position: relative;
+    left: 40%;
+}
+
+.timeStamp {
+  font-size: smaller; 
+  text-align: right;
+}
+
+  .textBox{
+    position: relative;
+    float: left;
+    width: 85%;
+  }
+
+  .uploadButton {
+    position: relative;
+    left: auto;
+    top:auto;
+    width: 15%;
+    padding: 2px;
+  }
+
+  .submitButton {
+    position: relative;
+    left: auto;
+    top:auto;
+    padding: 2px;
+    width: 15%;
+  }
+
+  

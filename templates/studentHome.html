@@ -1,0 +1,100 @@
+
+{% extends 'base.html' %}
+
+    {% load static %}
+    {% block content %}
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/student/courseList.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/student/chatBox.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/student/rightPart.css' %}">
+        
+        <script type="text/javascript" src="{% static 'js/jQuery.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/student/s_rightPart.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/student/s_chatBox.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/courseList.js' %}"></script>
+        <!-- Side navigation -->
+        <div class="sidenav">
+            {% for course in enrolled_courses %}
+            <button class="course">{{ course.title }}</button>
+                {% endfor %}
+            
+        </div>
+        <p id="username" hidden>{{ username }}</p>
+        <div class="chatBox" hidden>
+            <div class="groupName">
+                <h3 id="groupTitle">Group Name</h3>
+                <p id="creatorName">Creator Name</p>
+            </div>
+            <div class="Screen"  id="ChatBox">
+                
+            </div>
+            <button class="doubt btn btn-danger" id="view">Doubt</button>
+        </div>
+
+        <div class="rightPart">
+           
+            <form class="createGroup doubts" id="doubts" >
+                <input type="submit" class="btn btn-outline-info " value="Show Doubts" id="showAnswers"></input>
+            </form>
+            <div class="newGroupBox">
+                <div class="newGroupTitle">
+                    <h3>New Groups</h3>
+                </div>
+                <div class="Screen">
+                    {% for course in unenrolled_courses %}
+                    <div>
+                        <div class="newCourse">{{ course.title }}</div>
+                        <button class="joinButton btn btn-outline-info" id="joinButton">Join</button>
+                    </div>
+                        {% endfor %}
+                </div>
+            </div>
+            
+        </div>
+        <div id="doubtModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <h4>Describe your Doubt : </h4>
+              <textarea rows="10" id="doubtText"></textarea>
+              <div class="col">
+                <button class="btn btn-outline-info submitDoubt" id="submitDoubt">Submit</button>
+                <button class="btn btn-outline-info cancelDoubt" id="cancelDoubt">Cancel</button>
+              </div>
+            </div>
+          
+        </div>
+    
+            <div class="CourseDetails">
+    
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <h4>course Details: </h4>
+                    <div>
+                        <b>Course Name   </b>: <span id="nameOfCourse"> </span><br>
+                        <b>Description   </b>: <span id="Description"></span><br>
+                        <b>Level         </b>: <span id="Level"></span><br>
+                        <b>Takeaways     </b>: <span id="Takeaways"></span><br>
+                        <b>Creator    </b>: <span id="Creator"></span><br>
+                    </div> 
+                    <form class="col" method="POST">
+                        {% csrf_token %}
+                        <input hidden name="courseName" id="courseName" value="">
+                        <input type="submit" class="btn btn-outline-info submitDoubt" id="joinCourse" value="Join"></input> 
+                        <button class="btn btn-outline-info cancelDoubt" id="goBack">Back</button>
+                    </form>
+                    
+                </div>
+            
+            </div>
+    
+            <div id="answersModal" class="modal">
+    
+                <!-- Modal content -->
+                <div class="modal-content" id=answersScreen></div>
+                <button class="btn btn-outline-info AMgoBack" id="AMgoBack">Back</button>
+            </div>
+    
+    {% endblock %}
+
+    

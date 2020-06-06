@@ -1,0 +1,24 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<div class="card align-items-center">
+    <div class="card ">
+      <h1>{{ title }}</h1>
+      <br>
+      <p> <b>Description</b> : {{ description }}</p>
+      <p> <b>Level </b>: {{ level }}</p>
+      <p> <b>Takeaways </b>: {{ takeaways }}</p>
+      <p><b>Members</b></p>
+      <ul>
+        {% for member in members %}
+          <li>{{ member.username }}</li>
+          {% endfor %}
+      </ul>
+      
+    </div>
+</div>
+  {% endblock %}
