@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from studentPage.views import student_view,getChat_view,getDetails_view,sendDoubt_view
-from mentorPage.views import mentor_view,createGroup_view,login_view,signUp_view,logout_view,courseDetails_view,addMessage_view,getDoubt_view,removeDoubt_view
+from mentorPage.views import mentor_view,createGroup_view,login_view,signUp_view,logout_view,courseDetails_view,addMessage_view,getDoubt_view,removeDoubt_view,addPhotos_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,5 +35,6 @@ urlpatterns = [
     path('send_doubt', sendDoubt_view,name="sendDoubt"),
     path('get_doubts', getDoubt_view,name="getDoubt"),
     path('remove_doubt', removeDoubt_view,name="removeDoubt"),
+    path('add_photos', addPhotos_view,name="addPhoto"),
 
 ]

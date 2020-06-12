@@ -15,6 +15,7 @@ class Course(models.Model):
 
 class Chats(models.Model):
     course=models.ForeignKey(Course, on_delete=models.CASCADE)
-    message=models.CharField(max_length=200)
+    message=models.CharField(max_length=200 ,blank=True)
+    image=models.ImageField(blank=True)
     time=models.DateTimeField(auto_now=True)
 

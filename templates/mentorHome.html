@@ -32,7 +32,11 @@
             <div >
                 <form id="view">
                     <textarea rows="3" class="textBox"></textarea>
-                    <button  class="uploadButton btn btn-outline-primary">Upload</button>
+                    <form>
+                        {% csrf_token %}
+                        <input type="file"  class="uploadButton btn btn-outline-primary" id="upload">
+                        <input type="submit" class="submitButton btn btn-success" id="uploadButton" value="upload">
+                    </form>
                     <input type="submit" class="submitButton btn btn-success">
                 </form>
             </div>

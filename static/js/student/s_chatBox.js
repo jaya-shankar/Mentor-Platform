@@ -49,6 +49,8 @@ document.addEventListener('DOMContentLoaded', function(){
     document.querySelector("#cancelDoubt").onclick= function(){
         modal.style.display = "none";
     }
+
+    
     
     
         

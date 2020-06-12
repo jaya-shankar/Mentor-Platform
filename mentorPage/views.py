@@ -66,7 +66,8 @@ def login_view(request,*args,**kwargs):
         context={}
         return render(request,"login.html",context)
     if(request.method=="POST"):
-        
+        print("login")
+        print(request.POST)
         username=request.POST.get('username')
         password=request.POST.get('password')
         user=authenticate(request,username=username,password=password)
@@ -143,7 +144,6 @@ def addMessage_view(request,*args,**kwargs):
 
 @login_required()
 def getDoubt_view(request,*args,**kwargs):
-    
     username=request.GET["user_name"]
     doubts=list(Doubts.objects.filter(receiver=username,done=False).values())
     response={"doubts" : doubts}
@@ -156,5 +156,10 @@ def removeDoubt_view(request,*args,**kwargs):
     doubt=Doubts.objects.get(id=doubtID)
     doubt.done=True
     doubt.save()
+    
+    return HttpResponse("sucess")
+
+def addPhotos_view(request,*args,**kwargs):
+    print(request.POST)
     
     return HttpResponse("sucess")
