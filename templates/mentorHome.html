@@ -1,6 +1,7 @@
 
 {% extends 'base.html' %}
 {% load static %}
+
         {% block content %}
         
         <link rel="stylesheet" type="text/css" href="{% static 'css/mentor/courseList.css' %}">
@@ -16,28 +17,47 @@
         <!-- Side navigation -->
         <div class="sidenav">
             {% for course in courses %}
-                <button class="course">{{ course }}</button>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type ="text" name="course_name"  value="{{ course }}" hidden>
+                    <input type="submit" value="{{ course }}" class="course"></input>
+                </form> 
             {% endfor %}
         </div>
         <p id="username" hidden>{{ username }}</p>
 
-        <div class="chatBox" hidden>
+        <div class="chatBox" {% if not title %} hidden {% endif %}>
             <div class="groupName">
-                <h3 id="groupTitle"></h3>
-                <p id="creatorName">Creator Name</p>
+                <h3 id="groupTitle">{{ title }}</h3>
+                
             </div>
             <div class="Screen" id="ChatBox">
+                {% for chat in chats %}
+                    {% ifchanged chat.date %}
+                        <div class="dateBox">{{ chat.date }}</div>
+                    {% endifchanged %}
+                    {% if chat.message %}
+                        <div class="textMsg">{{ chat.message }}
+                            <div class="timeStamp">{{ chat.time }}</div>
+                        </div>
+                    {% endif %}
+                    {% if chat.image %}
+                        <div>
+                            <img src="{{ chat.image.url }}" class="imgMsg">
+                                <div class="imgTimeStamp">{{ chat.time }}</div>
+                        </div>
+                        
+                    {% endif %}
+                {% endfor %}
+
 
             </div>
             <div >
-                <form id="view">
+                <form id="view" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <textarea rows="3" class="textBox"></textarea>
-                    <form>
-                        {% csrf_token %}
-                        <input type="file"  class="uploadButton btn btn-outline-primary" id="upload">
-                        <input type="submit" class="submitButton btn btn-success" id="uploadButton" value="upload">
-                    </form>
-                    <input type="submit" class="submitButton btn btn-success">
+                    <input type="file"  class="uploadButton btn btn-outline-primary" id="upload">
+                    <input type="submit" class="submitButton btn btn-success" id="submit">
                 </form>
             </div>
         

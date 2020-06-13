@@ -15,6 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 from studentPage.views import student_view,getChat_view,getDetails_view,sendDoubt_view
 from mentorPage.views import mentor_view,createGroup_view,login_view,signUp_view,logout_view,courseDetails_view,addMessage_view,getDoubt_view,removeDoubt_view,addPhotos_view
 
@@ -37,4 +41,6 @@ urlpatterns = [
     path('remove_doubt', removeDoubt_view,name="removeDoubt"),
     path('add_photos', addPhotos_view,name="addPhoto"),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += staticfiles_urlpatterns()

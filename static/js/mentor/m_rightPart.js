@@ -18,7 +18,9 @@ document.addEventListener('DOMContentLoaded', function(){
                     for(let i=0;i<data.doubts.length;i++)
                     {
                         let div=createDoubtCard(data.doubts[i])
+                        
                         doubtScreen.appendChild(div)
+                        
                     }
                 }
             }

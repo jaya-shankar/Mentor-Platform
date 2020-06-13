@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var modal = document.getElementById("answersModal");
     var answerScreen=document.querySelector("#answersScreen")
     var username = document.getElementById("username").innerHTML;
-    let selectedCourse;
+    let courseName;
     
 
 
@@ -61,22 +61,24 @@ document.addEventListener('DOMContentLoaded', function(){
 
     joinCourse=document.querySelector("#joinCourse")
     joinCourse.onclick= function(){
-    let button=document.createElement("button");
-    button.className="course";
-    courseName=joinButtons[selectedCourse].previousElementSibling.innerHTML;
-    button.innerHTML=courseName;
-    button.onclick=function(){
-        let title=document.querySelector("#groupTitle")
-        title.innerHTML=button.innerHTML
-        }   
-    courseList=document.querySelector(".sidenav");
-    courseList.appendChild(button);
+        let button=document.createElement("button");
+        button.className="course";
+        //console.log("course name: "+courseName)
+        console.log("joinButtons"+joinButtons)
         
-    let parent=joinButtons[selectedCourse].parentElement;
-    parent.remove()
+        button.innerHTML=courseName;
+        button.onclick=function(){
+            let title=document.querySelector("#groupTitle")
+            title.innerHTML=button.innerHTML
+            }   
+        courseList=document.querySelector(".sidenav");
+        courseList.appendChild(button);
+            
+        let parent=document.getElementById(courseName).parentElement;
+        parent.remove()
 
-    CourseModal.style.display = "none";
-        }
+        CourseModal.style.display = "none";
+    }
     
     
     function fillTheDetails(data)

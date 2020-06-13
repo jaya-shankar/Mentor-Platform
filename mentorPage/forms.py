@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import Course
+from .models import Course,Chats
 
 
 
@@ -57,6 +57,10 @@ class SignUpForm(UserCreationForm):
             'password2' 
             
         ]
+
+ 
+                                      
+    
 
 
 

@@ -36,6 +36,20 @@
 
   }
 
+  .imgMsg {
+
+    position: relative;
+    left: 43%;
+    width: 50%;
+    height: 50%;
+    border-color: yellowgreen;
+    border-style: solid;
+    border-style: solid;
+
+  }
+
+  
+
   .dateBox {
     box-sizing: content-box;
     background-color: aqua;
@@ -48,6 +62,16 @@
 .timeStamp {
   font-size: smaller; 
   text-align: right;
+
+}
+
+.imgTimeStamp {
+  font-size: smaller; 
+  text-align: right;
+  position: relative;
+  bottom: 20px;
+  right: 30px;
+  color: white;
 }
 
   .textBox{

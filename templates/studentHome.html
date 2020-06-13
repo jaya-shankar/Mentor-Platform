@@ -15,19 +15,43 @@
         <!-- Side navigation -->
         <div class="sidenav">
             {% for course in enrolled_courses %}
-            <button class="course">{{ course.title }}</button>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type ="text" name="course_name"  value="{{ course.title }}" hidden>
+                    <input type="submit" value="{{ course.title }}" class="course"></input>
+                </form> 
                 {% endfor %}
             
         </div>
         <p id="username" hidden>{{ username }}</p>
-        <div class="chatBox" hidden>
+        <div class="chatBox" {% if not title %} hidden {% endif %}>
             <div class="groupName">
-                <h3 id="groupTitle">Group Name</h3>
-                <p id="creatorName">Creator Name</p>
+                <h3 id="groupTitle">{{ title }}</h3>
+                <p id="creatorName">{{creatorName}}</p>
             </div>
-            <div class="Screen"  id="ChatBox">
-                
+            <div class="Screen" id="ChatBox">
+                {% for chat in chats %}
+                    {% ifchanged chat.date %}
+                        <div class="dateBox">{{ chat.date }}</div>
+                    {% endifchanged %}
+                    {% if chat.message %}
+                        <div class="textMsg">{{ chat.message }}
+                            <div class="timeStamp">{{ chat.time }}</div>
+                        </div>
+                    {% endif %}
+                    {% if chat.image %}
+                        <div>
+                            <img src="{{ chat.image.url }}" class="imgMsg">
+                                <div class="imgTimeStamp">{{ chat.time }}</div>
+                        </div>
+                        
+                    {% endif %}
+                {% endfor %}
+
+
             </div>
+            
+
             <button class="doubt btn btn-danger" id="view">Doubt</button>
         </div>
 
@@ -43,7 +67,7 @@
                 <div class="Screen">
                     {% for course in unenrolled_courses %}
                     <div>
-                        <div class="newCourse">{{ course.title }}</div>
+                        <div class="newCourse" id="{{ course.title }}">{{ course.title }}</div>
                         <button class="joinButton btn btn-outline-info" id="joinButton">Join</button>
                     </div>
                         {% endfor %}

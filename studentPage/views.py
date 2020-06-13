@@ -10,13 +10,6 @@ from .models import Doubts
 # Create your views here.
 @login_required()
 def student_view(request,*args,**kwargs):
-
-    if(request.method=="POST"):
-        joined_course=request.POST.get("courseName")
-        course=Course.objects.get(title=joined_course)
-        course.members.add(User.objects.get(id=request.user.id))
-
-   
     all_courses=Course.objects.all()
     user=request.user
     enrolled_courses=Course.objects.filter(members=user)
@@ -28,12 +21,54 @@ def student_view(request,*args,**kwargs):
     unenrolled_course_titles=[]
     for i in unenrolled_courses:
         unenrolled_course_titles.append(i.title)
-
         
     context={"enrolled_courses" : enrolled_courses,
                 "unenrolled_courses" : unenrolled_courses , 
-                "username" :user.username}
-    return render(request,"studentHome.html",context)
+                "username" :user.username ,
+                }
+
+    if(request.method=="GET"):
+         return render(request,"studentHome.html",context)
+
+    if(request.method=="POST"):
+        if(request.POST.get("courseName")):
+            joined_course=request.POST.get("courseName")
+            course=Course.objects.get(title=joined_course)
+            course.members.add(User.objects.get(id=request.user.id))
+            return render(request,"studentHome.html",context)
+        else:
+            
+            courseName=request.POST["course_name"]
+            creatorID=Course.objects.get(title=courseName).creator
+            creatorName=User.objects.get(id=creatorID).username
+            
+            chats=Chats.objects.filter(course=Course.objects.get(title=courseName))
+            
+            cleaned_chats=[]
+            for i in range(len(chats)):
+                cleaned_message={  
+                                "id" : chats[i].id,
+                                "message" : chats[i].message,
+                                "image" : chats[i].image ,
+                                "date" : chats[i].time.strftime("%x"),
+                                "time" :chats[i].time.strftime("%H:%M")}
+                cleaned_chats.append(cleaned_message)
+            
+            context={"chats":cleaned_chats,
+                        "enrolled_courses" : enrolled_courses,
+                        "unenrolled_courses" : unenrolled_courses , 
+                        "username" :user.username ,
+                        "creatorName" : creatorName,
+                        "chats" : cleaned_chats,
+                        "title" : courseName,
+                        
+                        }
+            print(context)
+            return render(request,"studentHome.html",context)
+
+   
+    
+   
         
 @login_required()
 def getChat_view(request,*args,**kwargs):
@@ -46,6 +81,7 @@ def getChat_view(request,*args,**kwargs):
     for i in chats:
         cleaned_message={  "id" : i["id"],
                         "message" : i["message"],
+                        "image" : i["image"] ,
                         "date" : i["time"].strftime("%x"),
                         "time" :i["time"].strftime("%H:%M")}
         cleaned_chats.append(cleaned_message)
