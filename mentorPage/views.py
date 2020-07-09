@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.core import serializers
 from django.contrib.auth import authenticate , login, logout
 from django.http import HttpResponseRedirect,HttpResponse,JsonResponse
 from django.urls import reverse
@@ -15,7 +16,7 @@ from studentPage.models import Doubts
 def mentor_view(request,title="",*args,**kwargs):
 
 
-    courses=Course.objects.filter(creator=request.user.id)
+    courses=Course.objects.filter(creator=request.user)
     courses_title=[]
     users=User.objects.all()
     for i in courses:
@@ -30,8 +31,7 @@ def mentor_view(request,title="",*args,**kwargs):
     if(request.method=="POST"):
 
         courseName=request.POST["course_name"]
-        creatorID=Course.objects.get(title=courseName).creator
-        creatorName=User.objects.get(id=creatorID).username
+        creator=Course.objects.get(title=courseName).creator
         
         chats=Chats.objects.filter(course=Course.objects.get(title=courseName))
         
@@ -45,14 +45,13 @@ def mentor_view(request,title="",*args,**kwargs):
             cleaned_chats.append(cleaned_message)
         
         context={"chats":cleaned_chats,
-                    "creatorName" : creatorName,
+                    "creatorName" : creator.username,
                     "courses" : courses_title,
                     "username" : request.user.username,
                     "chats" : cleaned_chats,
                     "title" : courseName,
                     
                     }
-        print(context)
         return render(request,"mentorHome.html",context)
 
 
@@ -60,7 +59,7 @@ def mentor_view(request,title="",*args,**kwargs):
 @login_required()
 def createGroup_view(request,*args,**kwargs):
     if(request.method=="GET"):
-        form = CreateCourseForm({"creator":request.user.id})
+        form = CreateCourseForm({"creator":request.user})
         context={
             "form":form 
         }
@@ -70,7 +69,7 @@ def createGroup_view(request,*args,**kwargs):
         form = CreateCourseForm(request.POST)
         if(form.is_valid()):
             details=form.cleaned_data
-            details["creator"]=request.user.id
+            details["creator"]=request.user
             form = CreateCourseForm(details)
             form.save()
             
@@ -82,6 +81,7 @@ def createGroup_view(request,*args,**kwargs):
 def login_view(request,*args,**kwargs):
     if(request.method=="GET"):
         context={}
+
         return render(request,"login.html",context)
     if(request.method=="POST"):
         username=request.POST.get('username')
@@ -143,7 +143,7 @@ def courseDetails_view(request,title,*args,**kwargs):
                 "takeaways" : courseDetails.takeaways , 
                 "members" : courseDetails.members.all()
             }
-    if(courseDetails.creator==request.user.id):
+    if(courseDetails.creator==request.user):
         return render(request, "details.html",context)
     else:
         return redirect(mentor_view)
@@ -167,10 +167,21 @@ def addMessage_view(request,*args,**kwargs):
 @login_required()
 def getDoubt_view(request,*args,**kwargs):
     username=request.GET["user_name"]
-    doubts=list(Doubts.objects.filter(receiver=username,done=False).values())
-    response={"doubts" : doubts}
+    user=User.objects.get(username=username)
+    doubts=list(Doubts.objects.filter(receiver=user,done=False))
+    result=[]
+    for doubt in doubts:
+        result.append({
+            "id" : doubt.id ,
+            "course" : doubt.course.title ,
+            "sender" : doubt.sender.username ,
+            "message" : doubt.message
+        })
+
+    response={"doubts" : result}
 
     return JsonResponse(response)
+
 
 def removeDoubt_view(request,*args,**kwargs):
     doubtID=request.GET["doubt_id"]
@@ -182,7 +193,5 @@ def removeDoubt_view(request,*args,**kwargs):
     return HttpResponse("sucess")
 
 def addPhotos_view(request,*args,**kwargs):
-    print(request.FILES)
-    print(request.POST)
     
     return HttpResponse("sucess")

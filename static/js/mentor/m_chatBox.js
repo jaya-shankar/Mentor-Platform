@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(){
+
+    document.getElementById("mentor_active").className="nav-item nav-link active"
+    document.getElementById("student_active").className="nav-item nav-link"
     
     document.querySelector("#submit").onclick=function(event){
         let message=document.querySelector(".textBox").value;

@@ -19,10 +19,10 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav">
                 <li class="nav-item ">
-                    <a class="nav-item nav-link " href="../">Mentor<span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link " href="../"  id="mentor_active" >Mentor<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link active" href="{% url 'student' %}">Student </a>
+                    <a class="nav-item nav-link active" href="{% url 'student' %}" id="student_active">Student </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
@@ -32,7 +32,9 @@
                     {{username}}
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" >Change Password</a>
+                    <ul>
+                      <li><a class="dropdown-item" href="/change_password" >Change Password</a></li>
+                    </ul>
                   </div>
                 </li>
               </ul>
@@ -42,5 +44,6 @@
         {% endblock %}
       
     </body>
+    
 
    

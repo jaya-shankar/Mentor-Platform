@@ -19,7 +19,6 @@ class CreateCourseForm(forms.ModelForm):
                                                              "class":"form-control" ,  
                                                              "id":"takeaways" ,
                                                              "rows": "3"}))
-    creator = forms.IntegerField()
     class Meta:
         model = Course
         fields = [

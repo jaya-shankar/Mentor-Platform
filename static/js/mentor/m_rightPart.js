@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function createDoubtCard(data)
     {
+        console.log(data)
         let div=document.createElement("div")
         div.className="panel panel-default doubtBox"
         div.setAttribute("data-id",data.id)
