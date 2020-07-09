@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import Course
+from .models import Course,Chats
 
 
 
@@ -19,7 +19,6 @@ class CreateCourseForm(forms.ModelForm):
                                                              "class":"form-control" ,  
                                                              "id":"takeaways" ,
                                                              "rows": "3"}))
-    creator = forms.IntegerField()
     class Meta:
         model = Course
         fields = [
@@ -57,6 +56,10 @@ class SignUpForm(UserCreationForm):
             'password2' 
             
         ]
+
+ 
+                                      
+    
 
 
 

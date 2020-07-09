@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(){
+
+    document.getElementById("mentor_active").className="nav-item nav-link "
+    document.getElementById("student_active").className="nav-item nav-link active"
     var modal = document.getElementById("doubtModal");
 
     var btn = document.querySelector(".doubt");
@@ -49,6 +52,8 @@ document.addEventListener('DOMContentLoaded', function(){
     document.querySelector("#cancelDoubt").onclick= function(){
         modal.style.display = "none";
     }
+
+    
     
     
         

@@ -14,26 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from studentPage.views import student_view,getChat_view,getDetails_view,sendDoubt_view
-from mentorPage.views import mentor_view,createGroup_view,login_view,signUp_view,logout_view,courseDetails_view,addMessage_view,getDoubt_view,removeDoubt_view
+from django.urls import path,include
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',mentor_view ,name="mentor"),
-    
-    path('student', student_view,name="student"),
-    path('create_group', createGroup_view,name="createGroup"),
-    path('login', login_view,name="login"),
-    path('register', signUp_view,name="register"),
-    path('logout', logout_view,name="logout"),
-    
-    path('details/<str:title>', courseDetails_view,name="details"),
-    path('add_message', addMessage_view,name="addMessage"),
-    path('get_chats', getChat_view,name="getChat"),
-    path('get_details', getDetails_view,name="getDetails"),
-    path('send_doubt', sendDoubt_view,name="sendDoubt"),
-    path('get_doubts', getDoubt_view,name="getDoubt"),
-    path('remove_doubt', removeDoubt_view,name="removeDoubt"),
+    path('',include('studentPage.urls')),
+    path('',include('mentorPage.urls')),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += staticfiles_urlpatterns()

@@ -18,7 +18,9 @@ document.addEventListener('DOMContentLoaded', function(){
                     for(let i=0;i<data.doubts.length;i++)
                     {
                         let div=createDoubtCard(data.doubts[i])
+                        
                         doubtScreen.appendChild(div)
+                        
                     }
                 }
             }
@@ -30,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function createDoubtCard(data)
     {
+        console.log(data)
         let div=document.createElement("div")
         div.className="panel panel-default doubtBox"
         div.setAttribute("data-id",data.id)
