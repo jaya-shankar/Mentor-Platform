@@ -12,7 +12,20 @@ class Course(models.Model):
     takeaways = models.CharField(max_length=200)
     creator = models.ForeignKey(User ,on_delete=models.CASCADE)
     members=models.ManyToManyField(User,blank=True,related_name="Courses")
-
+    
+    def __str__(self):
+        return "{}".format(self.title)
+    
+    @classmethod
+    def create(cls,*args, **kwargs):
+        course=Course(
+            title=args[0]["title"][0] ,
+            level=args[0]["level"][0] ,
+            description=args[0]["description"][0] , 
+            takeaways=args[0]["takeaways"][0] ,
+            creator=args[0]["creator"]
+        )
+        return course
 
 class Chats(models.Model):
     course=models.ForeignKey(Course, on_delete=models.CASCADE)

@@ -11,3 +11,13 @@ class Doubts(models.Model):
     receiver=models.ForeignKey(User ,on_delete=models.CASCADE ,related_name="receiver")
     course=models.ForeignKey(Course ,on_delete=models.CASCADE)
     done= models.BooleanField(default=False)
+
+    @classmethod
+    def create(cls,user,course,message):
+        doubt=Doubts(
+            sender=user ,
+            course = course ,
+            receiver=course.creator ,
+            message=message
+        )
+        return doubt
